@@ -1,9 +1,10 @@
 {
   "name": "PruebaJira",
   "description": "Proyecto para tomar correos y subirlos a jira como un caso nuevo",
-  "main": "Main.xaml",
+  "main": "ActTicketNuevo.xaml",
   "dependencies": {
     "UiPath.Jira.Activities": "[2.4.0]",
+    "UiPath.Jira.IntegrationService.Activities": "[3.0.0]",
     "UiPath.Mail.Activities": "[1.18.1]",
     "UiPath.System.Activities": "[22.10.3]"
   },
@@ -45,8 +46,8 @@
   "expressionLanguage": "VisualBasic",
   "entryPoints": [
     {
-      "filePath": "Main.xaml",
-      "uniqueId": "eb983f08-56f6-417f-ab2f-43b7cd01822f",
+      "filePath": "ActTicketNuevo.xaml",
+      "uniqueId": "c84e645f-b631-4c7a-9dfe-78c7c7d116d6",
       "input": [],
       "output": []
     }
