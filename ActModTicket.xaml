@@ -1,4 +1,12 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ActModTicket" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1739,2736" sap2010:WorkflowViewState.IdRef="ActModTicket_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:aj="clr-namespace:Atlassian.Jira;assembly=Atlassian.Jira" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:si="clr-namespace:System.IO;assembly=System.Private.CoreLib" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System.Net.Mail" xmlns:ubt="clr-namespace:UiPath.BAF.Telemetry;assembly=UiPath.Jira" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uja="clr-namespace:UiPath.Jira.Activities;assembly=UiPath.Jira.Activities" xmlns:um="clr-namespace:UiPath.Mail;assembly=UiPath.Mail.Activities" xmlns:umab="clr-namespace:UiPath.Mail.Activities.Business;assembly=UiPath.Mail.Activities" xmlns:usa="clr-namespace:UiPath.Shared.Activities;assembly=UiPath.Jira.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ActModTicket" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:aj="clr-namespace:Atlassian.Jira;assembly=Atlassian.Jira" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:si="clr-namespace:System.IO;assembly=System.Private.CoreLib" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System.Net.Mail" xmlns:ubt="clr-namespace:UiPath.BAF.Telemetry;assembly=UiPath.Jira" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uja="clr-namespace:UiPath.Jira.Activities;assembly=UiPath.Jira.Activities" xmlns:um="clr-namespace:UiPath.Mail;assembly=UiPath.Mail.Activities" xmlns:umab="clr-namespace:UiPath.Mail.Activities.Business;assembly=UiPath.Mail.Activities" xmlns:usa="clr-namespace:UiPath.Shared.Activities;assembly=UiPath.Jira.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="argument1" Type="InArgument(x:String)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1739,2736</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ActModTicket_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="38">
       <x:String>System.Activities</x:String>
@@ -125,7 +133,7 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                     <ui:GetOutlookMailMessages Account="{x:Null}" Filter="{x:Null}" FilterByMessageIds="{x:Null}" Messages="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Obtener nuevos correos" GetAttachements="False" sap:VirtualizedContainerService.HintSize="676,32" sap2010:WorkflowViewState.IdRef="GetOutlookMailMessages_1" MailFolder="Inbox" MarkAsRead="True" OnlyUnreadMessages="True" OrderByDate="NewestFirst" Top="30" />
-                    <ui:ForEach x:TypeArguments="snm:MailMessage" CurrentIndex="[CorreosRecibidos]" DisplayName="Para cada" sap:VirtualizedContainerService.HintSize="676,1946" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[CorreosRecibidos]">
+                    <ui:ForEach x:TypeArguments="snm:MailMessage" CurrentIndex="[CorreosRecibidos]" DisplayName="Para cada" sap:VirtualizedContainerService.HintSize="676,1947" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[CorreosRecibidos]">
                       <ui:ForEach.Body>
                         <ActivityAction x:TypeArguments="snm:MailMessage">
                           <ActivityAction.Argument>
@@ -187,7 +195,7 @@
                                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                     </scg:Dictionary>
                                   </sap:WorkflowViewStateService.ViewState>
-                                  <uja:GetIssue ContinueOnError="{x:Null}" Issue="{x:Null}" NumberOfAttachments="{x:Null}" NumberOfComments="{x:Null}" DisplayCounts="False" DisplayName="Obtener incidencia" sap:VirtualizedContainerService.HintSize="434,94" sap2010:WorkflowViewState.IdRef="GetIssue_1" IssueKey="[Correo.Subject.Contains(&quot;&quot;)]">
+                                  <uja:GetIssue ContinueOnError="{x:Null}" Issue="{x:Null}" IssueKey="{x:Null}" NumberOfAttachments="{x:Null}" NumberOfComments="{x:Null}" DisplayCounts="False" DisplayName="Obtener incidencia" sap:VirtualizedContainerService.HintSize="434,94" sap2010:WorkflowViewState.IdRef="GetIssue_1">
                                     <uja:GetIssue.TelemetryProperties>
                                       <scg:Dictionary x:TypeArguments="ubt:TelemetryGroup, scg:IDictionary(x:String, x:String)" />
                                     </uja:GetIssue.TelemetryProperties>
