@@ -6,7 +6,8 @@
     "UiPath.Jira.Activities": "[2.4.0]",
     "UiPath.Jira.IntegrationService.Activities": "[3.0.0]",
     "UiPath.Mail.Activities": "[1.18.1]",
-    "UiPath.System.Activities": "[22.10.3]"
+    "UiPath.System.Activities": "[22.10.3]",
+    "UiPath.WebAPI.Activities": "[1.13.3]"
   },
   "webServices": [],
   "entitiesStores": [],

@@ -1,6 +1,6 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1739,6578" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:aj="clr-namespace:Atlassian.Jira;assembly=Atlassian.Jira" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:si="clr-namespace:System.IO;assembly=System.Private.CoreLib" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System.Net.Mail" xmlns:ss="clr-namespace:System.Security;assembly=System.Private.CoreLib" xmlns:ubt="clr-namespace:UiPath.BAF.Telemetry;assembly=UiPath.Jira" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uja="clr-namespace:UiPath.Jira.Activities;assembly=UiPath.Jira.Activities" xmlns:um="clr-namespace:UiPath.Mail;assembly=UiPath.Mail.Activities" xmlns:umab="clr-namespace:UiPath.Mail.Activities.Business;assembly=UiPath.Mail.Activities" xmlns:umabh="clr-namespace:UiPath.Mail.Activities.Business.HtmlEditor;assembly=UiPath.Mail.Activities" xmlns:usa="clr-namespace:UiPath.Shared.Activities;assembly=UiPath.Jira.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="63">
+    <scg:List x:TypeArguments="x:String" Capacity="64">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -64,10 +64,11 @@
       <x:String>UiPath.BAF.Models.Response</x:String>
       <x:String>UiPath.Mail.Activities.Utils</x:String>
       <x:String>UiPath.Mail.Activities.Business.HtmlEditor</x:String>
+      <x:String>UiPath.Core.Activities.Orchestrator</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="65">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="70">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -132,6 +133,11 @@
       <AssemblyReference>System.IO.FileSystem.DriveInfo</AssemblyReference>
       <AssemblyReference>UiPath.Jira.IntegrationService.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Jira.IntegrationService</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Linq.Parallel</AssemblyReference>
+      <AssemblyReference>System.Collections.Immutable</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Linq.Queryable</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <sap:WorkflowViewStateService.ViewState>
@@ -139,7 +145,7 @@
       <x:Boolean x:Key="ShouldExpandAll">True</x:Boolean>
     </scg:Dictionary>
   </sap:WorkflowViewStateService.ViewState>
-  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="1270,6944" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="1074,6524" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="User" />
       <Variable x:TypeArguments="ss:SecureString" Name="Password" />
@@ -155,56 +161,55 @@
       <Variable x:TypeArguments="x:String" Name="TicketAntiguo" />
       <Variable x:TypeArguments="aj:Issue" Name="TicketAntiguoSalida" />
       <Variable x:TypeArguments="x:String" Name="NuevoSummary" />
-      <Variable x:TypeArguments="x:String" Name="NuevoDescription" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:GetRobotCredential AssetName="UserJira" CacheStrategy="None" DisplayName="Obtener credencial" FolderPath="ivancho92.10@gmail.com's workspace" sap:VirtualizedContainerService.HintSize="1208,185" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[Password]" Username="[User]">
+    <ui:GetRobotCredential AssetName="UserJira" CacheStrategy="None" DisplayName="Obtener credencial" FolderPath="ivancho92.10@gmail.com's workspace" sap:VirtualizedContainerService.HintSize="1012,185" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[Password]" Username="[User]">
       <ui:GetRobotCredential.TimeoutMS>
         <InArgument x:TypeArguments="x:Int32" />
       </ui:GetRobotCredential.TimeoutMS>
     </ui:GetRobotCredential>
-    <uja:JiraScope ClientID="{x:Null}" ClientSecret="{x:Null}" Connection="{x:Null}" ContinueOnError="{x:Null}" JiraConnection="{x:Null}" ApiToken="[Password]" AuthenticationType="Api Token" DisplayName="Conexión a Jira" sap:VirtualizedContainerService.HintSize="1208,6597" sap2010:WorkflowViewState.IdRef="JiraScope_1" ServerURL="https://jiraco.softtek.cloud/" UserName="[User]">
+    <uja:JiraScope ClientID="{x:Null}" ClientSecret="{x:Null}" Connection="{x:Null}" ContinueOnError="{x:Null}" JiraConnection="{x:Null}" ApiToken="[Password]" AuthenticationType="Api Token" DisplayName="Conexión a Jira" sap:VirtualizedContainerService.HintSize="1012,6177" sap2010:WorkflowViewState.IdRef="JiraScope_1" ServerURL="https://jiraco.softtek.cloud/" UserName="[User]">
       <uja:JiraScope.Body>
         <ActivityAction x:TypeArguments="usa:IObjectContainer">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="usa:IObjectContainer" Name="ScopeActivity" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Hacer" sap:VirtualizedContainerService.HintSize="1174,6501" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence DisplayName="Hacer" sap:VirtualizedContainerService.HintSize="978,6081" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <umab:OutlookApplicationCard Account="ivan.ocampo@softtek.com" AccountMismatchBehavior="UseDefaultEmailAccount" DisplayName="Utilizar la aplicación Outlook de escritorio" sap:VirtualizedContainerService.HintSize="1112,6379" sap2010:WorkflowViewState.IdRef="OutlookApplicationCard_1">
+            <umab:OutlookApplicationCard Account="ivan.ocampo@softtek.com" AccountMismatchBehavior="UseDefaultEmailAccount" DisplayName="Utilizar la aplicación Outlook de escritorio" sap:VirtualizedContainerService.HintSize="916,5959" sap2010:WorkflowViewState.IdRef="OutlookApplicationCard_1">
               <umab:OutlookApplicationCard.Body>
                 <ActivityAction x:TypeArguments="um:IMailQuickHandle">
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="um:IMailQuickHandle" Name="Outlook" />
                   </ActivityAction.Argument>
-                  <Sequence DisplayName="Hacer" sap:VirtualizedContainerService.HintSize="1078,6185" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                  <Sequence DisplayName="Hacer" sap:VirtualizedContainerService.HintSize="882,5765" sap2010:WorkflowViewState.IdRef="Sequence_4">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:GetOutlookMailMessages Account="{x:Null}" Filter="{x:Null}" FilterByMessageIds="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Obtener nuevos correos" GetAttachements="False" sap:VirtualizedContainerService.HintSize="1016,32" sap2010:WorkflowViewState.IdRef="GetOutlookMailMessages_2" MailFolder="Inbox" MarkAsRead="True" Messages="[CorreosRecibidos]" OnlyUnreadMessages="True" OrderByDate="NewestFirst" Top="30" />
-                    <ui:ForEach x:TypeArguments="snm:MailMessage" CurrentIndex="{x:Null}" DisplayName="Para cada" sap:VirtualizedContainerService.HintSize="1016,5991" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[CorreosRecibidos]">
+                    <ui:GetOutlookMailMessages Account="{x:Null}" Filter="{x:Null}" FilterByMessageIds="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Obtener nuevos correos" GetAttachements="False" sap:VirtualizedContainerService.HintSize="820,32" sap2010:WorkflowViewState.IdRef="GetOutlookMailMessages_2" MailFolder="Inbox" MarkAsRead="True" Messages="[CorreosRecibidos]" OnlyUnreadMessages="True" OrderByDate="NewestFirst" Top="30" />
+                    <ui:ForEach x:TypeArguments="snm:MailMessage" CurrentIndex="{x:Null}" DisplayName="Para cada" sap:VirtualizedContainerService.HintSize="820,5571" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[CorreosRecibidos]">
                       <ui:ForEach.Body>
                         <ActivityAction x:TypeArguments="snm:MailMessage">
                           <ActivityAction.Argument>
                             <DelegateInArgument x:TypeArguments="snm:MailMessage" Name="Correo" />
                           </ActivityAction.Argument>
-                          <Sequence DisplayName="Secuencia" sap:VirtualizedContainerService.HintSize="980,5857" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                          <Sequence DisplayName="Secuencia" sap:VirtualizedContainerService.HintSize="784,5437" sap2010:WorkflowViewState.IdRef="Sequence_15">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <ui:MultipleAssign DisplayName="Asignación múltiple" sap:VirtualizedContainerService.HintSize="918,203" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+                            <ui:MultipleAssign DisplayName="Asignación múltiple" sap:VirtualizedContainerService.HintSize="722,203" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
                               <ui:MultipleAssign.AssignOperations>
                                 <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
                                   <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
@@ -242,9 +247,12 @@
                                 </scg:List>
                               </ui:MultipleAssign.AssignOperations>
                             </ui:MultipleAssign>
-                            <If Condition="[Correo.Subject.Contains(&quot;GSTI-*&quot;)]" DisplayName="Si" sap:VirtualizedContainerService.HintSize="918,5492" sap2010:WorkflowViewState.IdRef="If_2">
+                            <If Condition="[Correo.Subject.Contains(&quot;GSTI-*&quot;)]" DisplayName="Si" sap:VirtualizedContainerService.HintSize="722,5072" sap2010:WorkflowViewState.IdRef="If_2">
                               <If.Then>
                                 <Sequence sap:VirtualizedContainerService.HintSize="640,2471" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:String" Name="NuevoDescripcion" />
+                                  </Sequence.Variables>
                                   <sap:WorkflowViewStateService.ViewState>
                                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -268,16 +276,13 @@
                                       <OutArgument x:TypeArguments="x:String">[NuevoSummary]</OutArgument>
                                     </Assign.To>
                                     <Assign.Value>
-                                      <InArgument x:TypeArguments="x:String">[TicketAntiguoSalida.Summary]</InArgument>
+                                      <InArgument x:TypeArguments="x:String">[Asunto]</InArgument>
                                     </Assign.Value>
                                   </Assign>
                                   <Assign DisplayName="Asignar" sap:VirtualizedContainerService.HintSize="578,70" sap2010:WorkflowViewState.IdRef="Assign_5">
                                     <Assign.To>
-                                      <OutArgument x:TypeArguments="x:String">[NuevoDescription]</OutArgument>
+                                      <OutArgument x:TypeArguments="x:String">[NuevoDescripcion]</OutArgument>
                                     </Assign.To>
-                                    <Assign.Value>
-                                      <InArgument x:TypeArguments="x:String">[TicketAntiguoSalida.Description]</InArgument>
-                                    </Assign.Value>
                                   </Assign>
                                   <uja:UpdateIssue ContinueOnError="{x:Null}" UpdatedIssue="{x:Null}" DisplayName="Actualizar incidencia" sap:VirtualizedContainerService.HintSize="578,95" sap2010:WorkflowViewState.IdRef="UpdateIssue_7" Issue="[TicketAntiguoSalida]" NotifyWatchers="False">
                                     <uja:UpdateIssue.TelemetryProperties>
@@ -331,7 +336,7 @@
                                       </Sequence>
                                     </If.Else>
                                   </If>
-                                  <umab:SendMailX Bcc="{x:Null}" Cc="{x:Null}" HtmlBodyFromText="{x:Null}" ReplyTo="{x:Null}" Account="[Outlook]" Body="[&quot;Saludos, su ticket fue actualizado exitosamente el día &quot; + Date.Now.ToString]" BodyType="Text" DisplayName="Enviar correo electrónico" sap:VirtualizedContainerService.HintSize="578,381" sap2010:WorkflowViewState.IdRef="SendMailX_1" Importance="Normal" IsDraft="False" MaxBodyDocumentSizeMB="2" Sensitivity="Normal" Subject="[&quot;Ticket Número [&quot; + TicketAntiguo + &quot;]&quot;]" To="[Remitente.ToString]" UseDocumentAsBody="False">
+                                  <umab:SendMailX Bcc="{x:Null}" Cc="{x:Null}" HtmlBodyFromText="{x:Null}" ReplyTo="{x:Null}" Account="[Outlook]" Body="[&quot;Saludos, su ticket fue actualizado exitosamente el día &quot; + Date.Now.ToString]" BodyType="Text" DisplayName="Enviar correo electrónico" sap:VirtualizedContainerService.HintSize="578,381" sap2010:WorkflowViewState.IdRef="SendMailX_1" Importance="Normal" IsDraft="False" MaxBodyDocumentSizeMB="2" Sensitivity="Normal" Subject="[&quot;Ticket Número [&quot; + TicketAntiguo + &quot;]&quot;]" To="ivan.ocampo@softtek.com" UseDocumentAsBody="False">
                                     <umab:SendMailX.Files>
                                       <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
                                     </umab:SendMailX.Files>
@@ -349,13 +354,13 @@
                                 </Sequence>
                               </If.Then>
                               <If.Else>
-                                <Sequence sap:VirtualizedContainerService.HintSize="836,2855" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                                <Sequence sap:VirtualizedContainerService.HintSize="640,2435" sap2010:WorkflowViewState.IdRef="Sequence_17">
                                   <sap:WorkflowViewStateService.ViewState>
                                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                     </scg:Dictionary>
                                   </sap:WorkflowViewStateService.ViewState>
-                                  <If Condition="[Correo.attachments.Any]" DisplayName="Si" sap:VirtualizedContainerService.HintSize="774,2733" sap2010:WorkflowViewState.IdRef="If_1">
+                                  <If Condition="[Correo.attachments.Any]" DisplayName="Si" sap:VirtualizedContainerService.HintSize="578,2313" sap2010:WorkflowViewState.IdRef="If_1">
                                     <If.Then>
                                       <Sequence sap:VirtualizedContainerService.HintSize="496,1203" sap2010:WorkflowViewState.IdRef="Sequence_5">
                                         <sap:WorkflowViewStateService.ViewState>
@@ -400,14 +405,14 @@
                                       </Sequence>
                                     </If.Then>
                                     <If.Else>
-                                      <Sequence sap:VirtualizedContainerService.HintSize="692,1364" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                                      <Sequence sap:VirtualizedContainerService.HintSize="496,944" sap2010:WorkflowViewState.IdRef="Sequence_6">
                                         <sap:WorkflowViewStateService.ViewState>
                                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                           </scg:Dictionary>
                                         </sap:WorkflowViewStateService.ViewState>
-                                        <ui:LogMessage DisplayName="Registrar mensaje" sap:VirtualizedContainerService.HintSize="630,119" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;No hay adjuntos en &quot; + Correo.Subject]" />
-                                        <uja:CreateIssue Components="{x:Null}" ContinueOnError="{x:Null}" CustomFields="{x:Null}" ParentIssueKey="{x:Null}" DisplayName="Crear incidencia" sap:VirtualizedContainerService.HintSize="630,242" sap2010:WorkflowViewState.IdRef="CreateIssue_3" Issue="[Incidente]" IssueDescription="[Cuerpo]" IssueSummary="[Asunto]" IssueType="Tarea" ProjectKey="GSTI">
+                                        <ui:LogMessage DisplayName="Registrar mensaje" sap:VirtualizedContainerService.HintSize="434,119" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;No hay adjuntos en &quot; + Correo.Subject]" />
+                                        <uja:CreateIssue Components="{x:Null}" ContinueOnError="{x:Null}" CustomFields="{x:Null}" ParentIssueKey="{x:Null}" DisplayName="Crear incidencia" sap:VirtualizedContainerService.HintSize="434,242" sap2010:WorkflowViewState.IdRef="CreateIssue_3" Issue="[Incidente]" IssueDescription="[Cuerpo]" IssueSummary="[Asunto]" IssueType="Tarea" ProjectKey="GSTI">
                                           <uja:CreateIssue.AdditionalFields>
                                             <scg:Dictionary x:TypeArguments="x:String, InArgument" />
                                           </uja:CreateIssue.AdditionalFields>
@@ -415,43 +420,21 @@
                                             <scg:Dictionary x:TypeArguments="ubt:TelemetryGroup, scg:IDictionary(x:String, x:String)" />
                                           </uja:CreateIssue.TelemetryProperties>
                                         </uja:CreateIssue>
-                                        <ui:CommentOut DisplayName="Comentar" sap:VirtualizedContainerService.HintSize="630,801" sap2010:WorkflowViewState.IdRef="CommentOut_2">
-                                          <ui:CommentOut.Body>
-                                            <Sequence DisplayName="Actividades ignoradas" sap:VirtualizedContainerService.HintSize="594,713" sap2010:WorkflowViewState.IdRef="Sequence_22">
-                                              <sap:WorkflowViewStateService.ViewState>
-                                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                                </scg:Dictionary>
-                                              </sap:WorkflowViewStateService.ViewState>
-                                              <ui:CommentOut DisplayName="Comentar" sap:VirtualizedContainerService.HintSize="532,591" sap2010:WorkflowViewState.IdRef="CommentOut_1">
-                                                <ui:CommentOut.Body>
-                                                  <Sequence DisplayName="Actividades ignoradas" sap:VirtualizedContainerService.HintSize="496,503" sap2010:WorkflowViewState.IdRef="Sequence_19">
-                                                    <sap:WorkflowViewStateService.ViewState>
-                                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                                      </scg:Dictionary>
-                                                    </sap:WorkflowViewStateService.ViewState>
-                                                    <umab:SendMailX Bcc="{x:Null}" Cc="{x:Null}" HtmlBodyFromText="{x:Null}" ReplyTo="{x:Null}" Account="[Outlook]" Body="[&quot;Saludos, su ticket fue generado exitosamente y el número es &quot; + GSTI]" BodyType="Text" DisplayName="Enviar correo electrónico" sap:VirtualizedContainerService.HintSize="434,381" sap2010:WorkflowViewState.IdRef="SendMailX_2" Importance="Normal" IsDraft="False" MaxBodyDocumentSizeMB="2" Sensitivity="Normal" Subject="[&quot;Ticket Número [&quot; + GSTI +&quot;-&quot; + Incidente.ToString + &quot;]&quot;]" To="[Outlook]" UseDocumentAsBody="False">
-                                                      <umab:SendMailX.Files>
-                                                        <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
-                                                      </umab:SendMailX.Files>
-                                                      <umab:SendMailX.HtmlBodyFromFile>
-                                                        <umabh:HtmlContentArgument FilePath="{x:Null}">
-                                                          <umabh:HtmlContentArgument.RuntimeImages>
-                                                            <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
-                                                          </umabh:HtmlContentArgument.RuntimeImages>
-                                                          <umabh:HtmlContentArgument.ValueMappings>
-                                                            <scg:List x:TypeArguments="umabh:HtmlValueMappingBase" Capacity="0" />
-                                                          </umabh:HtmlContentArgument.ValueMappings>
-                                                        </umabh:HtmlContentArgument>
-                                                      </umab:SendMailX.HtmlBodyFromFile>
-                                                    </umab:SendMailX>
-                                                  </Sequence>
-                                                </ui:CommentOut.Body>
-                                              </ui:CommentOut>
-                                            </Sequence>
-                                          </ui:CommentOut.Body>
-                                        </ui:CommentOut>
+                                        <umab:SendMailX Bcc="{x:Null}" Cc="{x:Null}" HtmlBodyFromText="{x:Null}" ReplyTo="{x:Null}" Account="[Outlook]" Body="[&quot;Saludos, su ticket fue generado exitosamente y el número es &quot; + GSTI + &quot;-&quot;+ Incidente.ToString]" BodyType="Text" DisplayName="Enviar correo electrónico" sap:VirtualizedContainerService.HintSize="434,381" sap2010:WorkflowViewState.IdRef="SendMailX_3" Importance="Normal" IsDraft="False" MaxBodyDocumentSizeMB="2" Sensitivity="Normal" Subject="[&quot;Ticket Número [&quot; + GSTI +&quot;-&quot; + Incidente.ToString + &quot;]&quot;]" To="ivan.ocampo@softtek.com" UseDocumentAsBody="False">
+                                          <umab:SendMailX.Files>
+                                            <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+                                          </umab:SendMailX.Files>
+                                          <umab:SendMailX.HtmlBodyFromFile>
+                                            <umabh:HtmlContentArgument FilePath="{x:Null}">
+                                              <umabh:HtmlContentArgument.RuntimeImages>
+                                                <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
+                                              </umabh:HtmlContentArgument.RuntimeImages>
+                                              <umabh:HtmlContentArgument.ValueMappings>
+                                                <scg:List x:TypeArguments="umabh:HtmlValueMappingBase" Capacity="0" />
+                                              </umabh:HtmlContentArgument.ValueMappings>
+                                            </umabh:HtmlContentArgument>
+                                          </umab:SendMailX.HtmlBodyFromFile>
+                                        </umab:SendMailX>
                                       </Sequence>
                                     </If.Else>
                                   </If>
